@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-"""
-To manage the API authentication.
+"""Authentication module for the API.
 """
 import os
 import re
@@ -8,11 +7,11 @@ from typing import List, TypeVar
 from flask import request
 
 
-class Auth():
-    """Authentication class
+class Auth:
+    """Authentication class.
     """
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
-        """checks if a path requires authentication.
+        """Checks if a path requires authentication.
         """
         if path is not None and excluded_paths is not None:
             for exclusion_path in map(lambda x: x.strip(), excluded_paths):
@@ -39,9 +38,9 @@ class Auth():
         """
         return None
 
-    def session_cookie(self, request=None):
-        """returns a cookie value from a request
+    def session_cookie(self, request=None) -> str:
+        """Gets the value of the cookie named SESSION_NAME.
         """
-        if request is None:
+        if request is not None:
             cookie_name = os.getenv('SESSION_NAME')
             return request.cookies.get(cookie_name)
